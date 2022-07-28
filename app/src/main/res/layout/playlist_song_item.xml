@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/item"
+        >
+
+  <LinearLayout
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/clickToSong">
+
+    <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            tools:src="@tools:sample/avatars"
+            android:id="@+id/thumbnail"/>
+
+    <LinearLayout
+            android:layout_width="215dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:id="@+id/holder"
+            android:onClick="onClick">
+
+      <TextView
+              android:id="@+id/song_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              tools:text="@tools:sample/lorem[3]"
+              android:textColor="#ABABAB"/>
+
+      <TextView
+              android:id="@+id/artist"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              tools:text="@tools:sample/lorem[4]"
+              android:textColor="#ABABAB"/>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+      <ImageButton
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:srcCompat="@drawable/playlist_add_check"
+              android:id="@+id/song_add"
+              android:layout_weight="1"
+              style="@android:style/Widget.Material.Light.ImageButton"
+              android:background="@android:color/transparent"
+              android:scaleType="fitXY"
+              android:layout_gravity="right|center_vertical|end"
+              tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+              android:minHeight="30dp"
+              android:minWidth="30dp"
+              app:layout_constraintEnd_toStartOf="@+id/song_like"
+              app:layout_constraintTop_toTopOf="@+id/song_like"
+              android:layout_marginEnd="16dp"
+              app:tint="#FFFFFF"/>
+
+      <ImageButton
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:srcCompat="@drawable/heart"
+              android:id="@+id/song_like"
+              android:layout_weight="1"
+              android:layout_gravity="center_vertical|end"
+              android:background="@android:color/transparent"
+              tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+              android:minWidth="30dp"
+              android:minHeight="30dp"
+              android:scaleType="fitXY"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              android:layout_marginTop="20dp"
+              android:layout_marginEnd="16dp"
+              app:tint="#FFFFFF"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

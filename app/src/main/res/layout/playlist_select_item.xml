@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/item"
+        >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+          android:orientation="vertical"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          >
+
+    <androidx.gridlayout.widget.GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rowCount="2"
+            app:columnCount="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/pl_grid">
+
+      <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              tools:srcCompat="@tools:sample/avatars"
+              android:id="@+id/pl_tb1"
+              />
+
+      <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              tools:srcCompat="@tools:sample/avatars"
+              android:id="@+id/pl_tb2"
+              />
+
+      <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              tools:srcCompat="@tools:sample/avatars"
+              android:id="@+id/pl_tb3"
+              />
+
+      <ImageView
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              tools:srcCompat="@tools:sample/avatars"
+              android:id="@+id/pl_tb4"
+              />
+    </androidx.gridlayout.widget.GridLayout>
+
+    <TextView
+            android:id="@+id/pl_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ABABAB"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/pl_grid"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.571"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:textAllCaps="false"
+            android:text="Lorem ipsum"
+            android:fontFamily="sans-serif"
+            android:typeface="serif"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pl_select"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:buttonTint="#ABABAB"
+            android:textSize="0sp"
+            android:layout_marginEnd="16dp"/>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

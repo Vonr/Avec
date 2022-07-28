@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="#a45050">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/transparency_gradient"
+            android:cropToPadding="false"
+            android:adjustViewBounds="false"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/imageView4"/>
+
+    <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat="@drawable/arrow_back"
+            android:id="@+id/back"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp"
+            android:background="#00FFFFFF"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:tint="#ABABAB"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"/>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="390dp"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="80dp">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingEnd="20dp">
+
+            <TextView
+                    android:text="Right Handed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/s_right_handed"
+                    android:layout_weight="4"
+                    android:textColor="#ABABAB"
+                    android:textStyle="bold"
+                    android:textSize="24sp"/>
+
+            <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/right_handed_switch"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/transparent"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

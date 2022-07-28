@@ -1,0 +1,46 @@
+package com.example.avec.activity;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.avec.R;
+import com.example.avec.util.Globals;
+import com.example.avec.util.playlist.Playlist;
+import com.example.avec.util.playlist.PlaylistSongAdapter;
+
+public class PlaylistActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        int index = getIntent().getIntExtra("index", -1);
+        if (index == -1) {
+            Log.e("PlaylistActivity", "No index provided");
+            return;
+        }
+
+        super.onCreate(savedInstanceState);
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+        setContentView(R.layout.activity_playlist);
+
+        Playlist pl = Globals.playlists.get(index);
+
+        // Set the title of the screen to the playlist's name
+        TextView title = findViewById(R.id.pl_title);
+        title.setText(pl.name);
+
+        // Create a new Song Adapter of the global Song Registry
+        PlaylistSongAdapter songAdapter = new PlaylistSongAdapter(pl.name, pl.getSongs());
+        // Set the Song Adapter to the Recycler View
+        RecyclerView recyclerView = findViewById(R.id.pl_songs);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(songAdapter);
+    }
+
+    public void onClick(View v) {
+        finish();
+    }
+}
