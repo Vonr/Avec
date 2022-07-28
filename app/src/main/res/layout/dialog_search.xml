@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="#3d3d3d">
+
+    <TextView
+            android:text="Create New Playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dpl_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24sp"
+            android:textColor="#ABABAB"
+            android:layout_marginTop="20dp"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/cpl_name"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/dpl_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="Name"
+            android:textSize="24sp"
+            android:textColor="#ABABAB"
+            android:backgroundTint="#ABABAB"
+            android:textColorHint="#9a9a9a"/>
+
+    <CheckBox
+            android:text="Pinned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cpl_pinned"
+            app:layout_constraintTop_toBottomOf="@+id/cpl_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:checked="false"
+            android:buttonTint="#ABABAB"
+            android:textColor="#ABABAB"
+            android:textSize="24sp"/>
+
+    <TextView
+            android:text="CONFIRM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/confirm"
+            app:layout_constraintTop_toBottomOf="@+id/cpl_pinned"
+            android:textSize="24sp"
+            android:textColor="#00BCD4"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="40dp"/>
+
+    <TextView
+            android:text="CANCEL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancel"
+            app:layout_constraintTop_toBottomOf="@+id/cpl_pinned"
+            android:textSize="24sp"
+            android:textColor="#00BCD4"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="40dp"/>
+
+    <Space
+            android:layout_width="375dp"
+            android:layout_height="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/confirm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/space"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
