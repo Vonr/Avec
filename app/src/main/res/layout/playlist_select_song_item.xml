@@ -22,13 +22,14 @@
             android:id="@+id/thumbnail"/>
 
     <LinearLayout
-            android:layout_width="215dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:padding="5dp"
             android:orientation="vertical"
             android:id="@+id/holder"
-            android:onClick="onClick">
+            android:onClick="onClick"
+            android:layout_weight="0">
 
       <TextView
               android:id="@+id/song_name"
@@ -50,41 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-      <ImageButton
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              app:srcCompat="@drawable/heart"
-              android:id="@+id/song_like"
-              android:layout_weight="1"
-              android:layout_gravity="center_vertical|end"
-              android:background="@android:color/transparent"
-              tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-              android:minWidth="30dp"
-              android:minHeight="30dp"
-              android:scaleType="fitXY"
-              app:layout_constraintEnd_toEndOf="parent"
-              app:layout_constraintTop_toTopOf="parent"
-              android:layout_marginTop="20dp"
-              android:layout_marginEnd="16dp"
-              app:tint="#FFFFFF"/>
 
-      <ImageButton
+      <CheckBox
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              app:srcCompat="@drawable/playlist_add_check"
-              android:id="@+id/song_add"
-              android:layout_weight="1"
-              style="@android:style/Widget.Material.Light.ImageButton"
-              android:background="@android:color/transparent"
-              android:scaleType="fitXY"
-              android:layout_gravity="right|center_vertical|end"
-              tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-              android:minHeight="30dp"
-              android:minWidth="30dp"
-              app:layout_constraintEnd_toStartOf="@+id/song_like"
-              app:layout_constraintTop_toTopOf="@+id/song_like"
-              android:layout_marginEnd="16dp"
-              app:tint="#FFFFFF"/>
+              android:id="@+id/song_select"
+              android:buttonTint="#ABABAB"
+              android:backgroundTint="@android:color/transparent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:layout_marginEnd="16dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </LinearLayout>

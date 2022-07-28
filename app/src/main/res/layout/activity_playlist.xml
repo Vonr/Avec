@@ -58,4 +58,18 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="26dp"/>
 
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/add"
+            android:id="@+id/pl_add_songs"
+            android:backgroundTint="@android:color/transparent"
+            android:tint="#ABABAB"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

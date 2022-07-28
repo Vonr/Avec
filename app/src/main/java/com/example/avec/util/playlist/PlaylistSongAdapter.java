@@ -24,28 +24,19 @@ import static com.example.avec.util.ImageLoader.asyncFromURL;
 
 public class PlaylistSongAdapter extends RecyclerView.Adapter {
     String name;
-    int[] playlist;
+    Playlist playlist;
     ArrayList<Integer> toRemove = new ArrayList<>();
 
-    public PlaylistSongAdapter(String name, int[] songs) {
+    public PlaylistSongAdapter(String name, Playlist songs) {
         this.name = name;
         this.playlist = songs;
-    }
-
-    public PlaylistSongAdapter(String name, ArrayList<Song> songCollection) {
-        this.name = name;
-        int[] indices = new int[songCollection.size()];
-        for (int i = 0; i < songCollection.size(); i++) {
-            indices[i] = songCollection.get(i).index;
-        }
-        this.playlist = indices;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.playlist_song_item, parent, false);
+                .inflate(R.layout.song_item, parent, false);
 
         return new SongViewHolder(itemView);
     }
@@ -54,7 +45,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
-            int index = playlist[position];
+            int index = playlist.getSongs()[position];
             Song song = Globals.songRegistry.songs.get(index);
             h.name.setText(song.name);
             h.artist.setText(song.artist);
@@ -113,14 +104,14 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
     private void playSong(Context ctx, int index) {
         Intent intent = new Intent(ctx, PlaySongActivity.class);
         intent.putExtra("index", index);
-        intent.putExtra("songs", playlist);
+        intent.putExtra("songs", playlist.getSongs());
 
         ctx.startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return playlist.length;
+        return playlist.size();
     }
 
     class SongViewHolder extends RecyclerView.ViewHolder {

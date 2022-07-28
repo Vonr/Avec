@@ -24,6 +24,9 @@ public class Playlist {
     }
 
     public boolean add(int index) {
+        if (songs.contains(index)) {
+            return false;
+        }
         boolean success = songs.add(index);
         if (success) {
             Globals.pref.savePlaylists(Globals.playlists);

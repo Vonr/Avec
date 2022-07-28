@@ -65,8 +65,6 @@ public class PlaylistSelectAdapter extends RecyclerView.Adapter {
     }
 
     public boolean isSelected(Playlist playlist) {
-        Log.d("PlaylistSelectAdapter", "isSelected: " + playlist.name + " of " + playlists);
-        Log.d("PlaylistSelectAdapter", "isSelected: " + Arrays.toString(selected));
         return selected[playlists.indexOf(playlist)];
     }
 

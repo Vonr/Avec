@@ -1,7 +1,6 @@
 package com.example.avec.dialog;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -54,8 +53,8 @@ public class CreateNewPlaylistDialog {
             public void afterTextChanged(Editable editable) {}
         });
 
-        dialog.findViewById(R.id.cpl_cancel).setOnClickListener(v -> dialog.cancel());
-        dialog.findViewById(R.id.cpl_confirm).setOnClickListener(v -> {
+        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.cancel());
+        dialog.findViewById(R.id.confirm).setOnClickListener(v -> {
             String newName = nameField.getText().toString();
 
             if (!newName.isEmpty() && !newName.equals("Your Favourites") && !playlistNames.contains(newName)) {
