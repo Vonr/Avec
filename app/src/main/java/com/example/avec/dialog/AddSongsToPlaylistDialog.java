@@ -11,8 +11,7 @@ import com.example.avec.util.playlist.Playlist;
 import com.example.avec.util.playlist.PlaylistSongAdapter;
 import com.example.avec.util.song.SongSelectAdapter;
 
-public class AddSongsToPlaylistDialog {
-    private final AlertDialog dialog;
+public class AddSongsToPlaylistDialog extends AvecDialog {
     private final int playlist;
     private final PlaylistSongAdapter playlistSongAdapter;
 
@@ -46,7 +45,7 @@ public class AddSongsToPlaylistDialog {
                     this.playlistSongAdapter.notifyItemInserted(pl.size());
                 }
             }
-            dialog.cancel();
+            succeed();
         });
     }
 }

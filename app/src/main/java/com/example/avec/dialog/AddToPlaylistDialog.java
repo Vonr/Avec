@@ -11,8 +11,7 @@ import com.example.avec.util.Globals;
 import com.example.avec.util.playlist.Playlist;
 import com.example.avec.util.playlist.PlaylistSelectAdapter;
 
-public class AddToPlaylistDialog {
-    private final AlertDialog dialog;
+public class AddToPlaylistDialog extends AvecDialog {
     private final int song;
 
     public AddToPlaylistDialog(Context ctx, int song) {
@@ -45,7 +44,7 @@ public class AddToPlaylistDialog {
                     Globals.pref.savePlaylists();
                 }
             }
-            dialog.cancel();
+            succeed();
         });
     }
 

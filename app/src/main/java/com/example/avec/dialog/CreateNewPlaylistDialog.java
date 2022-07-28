@@ -14,14 +14,14 @@ import com.example.avec.util.playlist.Playlist;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class CreateNewPlaylistDialog {
-    private final AlertDialog dialog;
-    private Runnable successCallback = null;
+public class CreateNewPlaylistDialog extends AvecDialog {
+    private Runnable successCallback;
 
-    public CreateNewPlaylistDialog(Context ctx) {
+    public CreateNewPlaylistDialog(Context ctx, Runnable successCallback) {
         AlertDialog.Builder db = new AlertDialog.Builder(ctx);
         db.setView(R.layout.dialog_create_playlist);
-        dialog = db.create();
+        this.dialog = db.create();
+        this.successCallback = successCallback;
     }
 
     public void show() {
@@ -62,14 +62,9 @@ public class CreateNewPlaylistDialog {
                 pl.pinned = ((CheckBox) dialog.findViewById(R.id.cpl_pinned)).isChecked();
                 Globals.playlists.add(pl);
                 Globals.pref.savePlaylists();
-                successCallback.run();
-                dialog.cancel();
+                succeed();
             }
         });
-    }
-
-    public void setSuccessCallback(Runnable callback) {
-        this.successCallback = callback;
     }
 
     private void clear() {

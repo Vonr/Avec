@@ -1,7 +1,7 @@
 package com.example.avec.util.song;
 
 public class Song {
-    // Since no validation of songs are required, all fields are made protected.
+    // Since no validation of songs are required, all fields are made public.
     // This makes them easier to access and reduces clutter in the code.
     public int index;
     public String name;

@@ -15,27 +15,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.activity.PlaySongActivity;
 import com.example.avec.dialog.AddToPlaylistDialog;
-import com.example.avec.dialog.CreateNewPlaylistDialog;
 import com.example.avec.util.Globals;
 import com.example.avec.util.playlist.Playlist;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.example.avec.util.ImageLoader.asyncFromURL;
 
 public class SongAdapter extends RecyclerView.Adapter {
-    int[] playlist;
+    ArrayList<Song> playlist;
+    String query;
+    ArrayList<Song> sorted;
 
-    public SongAdapter(int[] songs) {
-        this.playlist = songs;
-    }
-
-    public SongAdapter(ArrayList<Song> songCollection) {
-        int[] indices = new int[songCollection.size()];
-        for (int i = 0; i < songCollection.size(); i++) {
-            indices[i] = songCollection.get(i).index;
-        }
-        this.playlist = indices;
+    public SongAdapter(ArrayList<Song> playlist) {
+        this.playlist = playlist;
+        this.query = "";
+        this.sorted = new ArrayList<>(playlist);
     }
 
     @NonNull
@@ -51,8 +48,7 @@ public class SongAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
-            int index = playlist[position];
-            Song song = Globals.songRegistry.songs.get(index);
+            Song song = sorted.get(position);
             h.name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
@@ -68,7 +64,7 @@ public class SongAdapter extends RecyclerView.Adapter {
             }
 
             h.add.setOnClickListener(v -> {
-                AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), playlist[position]);
+                AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
                 dialog.show();
             });
 
@@ -87,14 +83,27 @@ public class SongAdapter extends RecyclerView.Adapter {
     private void playSong(Context ctx, int index) {
         Intent intent = new Intent(ctx, PlaySongActivity.class);
         intent.putExtra("index", index);
-        intent.putExtra("songs", playlist);
+        intent.putExtra("songs", playlist.stream().mapToInt(s -> s.index).toArray());
 
         ctx.startActivity(intent);
     }
 
+    public void search(String query) {
+        Log.d("SongAdapter", "Old Sorted: " + Arrays.toString(sorted.stream().map(s -> s.name).toArray()));
+        if (query.isEmpty()) {
+            sorted.clear();
+            sorted.addAll(playlist);
+            return;
+        }
+        List<Song> newSearch = Globals.ss.search(query, playlist);
+        sorted.clear();
+        sorted.addAll(newSearch);
+        Log.d("SongAdapter", "New Sorted: " + Arrays.toString(sorted.stream().map(s -> s.name).toArray()));
+    }
+
     @Override
     public int getItemCount() {
-        return playlist.length;
+        return sorted.size();
     }
 
     class SongViewHolder extends RecyclerView.ViewHolder {

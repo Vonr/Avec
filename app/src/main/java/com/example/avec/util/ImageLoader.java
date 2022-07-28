@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ImageLoader {
-    public static Map<String, Drawable> drawableCache = new HashMap<>();
+    private static final Map<String, Drawable> drawableCache = new HashMap<>();
 
-    public static Drawable fromURL(String url) {
+    private static Drawable fromURL(String url) {
         if (drawableCache.containsKey(url)) {
             return drawableCache.get(url);
         }

@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.activity.PlaylistActivity;
-import com.example.avec.dialog.CreateNewPlaylistDialog;
 import com.example.avec.dialog.RemovePlaylistDialog;
 import com.example.avec.util.Globals;
 
@@ -64,21 +63,23 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
             }
 
             h.remove.setOnClickListener(v -> {
-                RemovePlaylistDialog dialog = new RemovePlaylistDialog(v.getContext(), pl);
-                dialog.setSuccessCallback(() -> notifyItemRemoved(position));
+                RemovePlaylistDialog dialog = new RemovePlaylistDialog(v.getContext(), pl, () -> notifyItemRemoved(position));
                 dialog.show();
             });
 
-            if (size > 0) {
-                asyncFromURL(h.tb1, pl.get(0).getThumbnailURL());
-                if (size < 2) return;
-                asyncFromURL(h.tb2, pl.get(1).getThumbnailURL());
-                if (size < 3) return;
-                asyncFromURL(h.tb3, pl.get(2).getThumbnailURL());
-                if (size < 4) return;
-                asyncFromURL(h.tb4, pl.get(3).getThumbnailURL());
-            }
+            loadImages(h, pl, size);
         }
+    }
+
+    public void loadImages(PlaylistViewHolder h, Playlist pl, int size) {
+        if (size < 1) return;
+        asyncFromURL(h.tb1, pl.get(0).getThumbnailURL());
+        if (size < 2) return;
+        asyncFromURL(h.tb2, pl.get(1).getThumbnailURL());
+        if (size < 3) return;
+        asyncFromURL(h.tb3, pl.get(2).getThumbnailURL());
+        if (size < 4) return;
+        asyncFromURL(h.tb4, pl.get(3).getThumbnailURL());
     }
 
     private void enterPlaylist(Context ctx, Playlist pl) {

@@ -1,19 +1,20 @@
 package com.example.avec;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.avec.activity.PlaySongActivity;
 import com.example.avec.activity.PlaylistsActivity;
 import com.example.avec.activity.SettingsActivity;
-import com.example.avec.util.*;
+import com.example.avec.dialog.SearchDialog;
+import com.example.avec.util.Globals;
+import com.example.avec.util.Preferences;
 import com.example.avec.util.song.SongAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(songAdapter);
 
-        initButtons();
+        initButtons(songAdapter);
     }
 
-    public void initButtons() {
+    @SuppressLint("NotifyDataSetChanged")
+    public void initButtons(SongAdapter songAdapter) {
         ConstraintLayout menu = findViewById(R.id.menu);
         ImageButton menu_button = findViewById(R.id.menu_button);
         menu_button.setOnClickListener(v -> {
@@ -63,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         });
+
+        SearchDialog searchDialog = new SearchDialog(this);
+        searchDialog.setSuccessCallback(() -> {
+            songAdapter.search(searchDialog.query);
+            songAdapter.notifyDataSetChanged();
+        });
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(v -> searchDialog.show());
     }
 
     @Override

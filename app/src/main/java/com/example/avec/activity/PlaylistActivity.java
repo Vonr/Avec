@@ -15,6 +15,7 @@ import com.example.avec.util.playlist.Playlist;
 import com.example.avec.util.playlist.PlaylistSongAdapter;
 
 public class PlaylistActivity extends AppCompatActivity {
+    PlaylistSongAdapter playlistSongAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int index = getIntent().getIntExtra("index", -1);
@@ -34,7 +35,7 @@ public class PlaylistActivity extends AppCompatActivity {
         title.setText(pl.name);
 
         // Create a new Song Adapter of the global Song Registry
-        PlaylistSongAdapter playlistSongAdapter = new PlaylistSongAdapter(pl.name, pl);
+        playlistSongAdapter = new PlaylistSongAdapter(pl.name, pl);
         // Set the Song Adapter to the Recycler View
         RecyclerView recyclerView = findViewById(R.id.pl_songs);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
@@ -44,6 +45,12 @@ public class PlaylistActivity extends AppCompatActivity {
         ImageButton add = findViewById(R.id.pl_add_songs);
         AddSongsToPlaylistDialog dialog = new AddSongsToPlaylistDialog(this, index, playlistSongAdapter);
         add.setOnClickListener(v -> dialog.show());
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        playlistSongAdapter.remove();
     }
 
     public void onClick(View v) {

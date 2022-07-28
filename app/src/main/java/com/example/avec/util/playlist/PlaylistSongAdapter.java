@@ -13,9 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.activity.PlaySongActivity;
-import com.example.avec.dialog.AddToPlaylistDialog;
 import com.example.avec.util.Globals;
-import com.example.avec.util.playlist.Playlist;
 import com.example.avec.util.song.Song;
 
 import java.util.ArrayList;
@@ -107,6 +105,12 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
         intent.putExtra("songs", playlist.getSongs());
 
         ctx.startActivity(intent);
+    }
+
+    public void remove() {
+        for (int i = 0; i < toRemove.size(); i++) {
+            playlist.remove(toRemove.get(i));
+        }
     }
 
     @Override

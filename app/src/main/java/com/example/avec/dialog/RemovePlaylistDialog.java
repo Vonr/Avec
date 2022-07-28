@@ -1,28 +1,21 @@
 package com.example.avec.dialog;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import com.example.avec.R;
 import com.example.avec.util.Globals;
 import com.example.avec.util.playlist.Playlist;
 
-import java.util.ArrayList;
-
-public class RemovePlaylistDialog {
-    private final AlertDialog dialog;
+public class RemovePlaylistDialog extends AvecDialog {
     private final Playlist playlist;
-    private Runnable successCallback = null;
 
-    public RemovePlaylistDialog(Context ctx, Playlist playlist) {
+    public RemovePlaylistDialog(Context ctx, Playlist playlist, Runnable successCallback) {
         AlertDialog.Builder db = new AlertDialog.Builder(ctx);
         db.setView(R.layout.dialog_remove_playlist);
         dialog = db.create();
         this.playlist = playlist;
+        this.successCallback = successCallback;
     }
 
     public void show() {
@@ -33,12 +26,7 @@ public class RemovePlaylistDialog {
         dialog.findViewById(R.id.dpl_confirm).setOnClickListener(v -> {
             Globals.playlists.remove(playlist);
             Globals.pref.savePlaylists();
-            successCallback.run();
-            dialog.dismiss();
+            succeed();
         });
-    }
-
-    public void setSuccessCallback(Runnable callback) {
-        this.successCallback = callback;
     }
 }

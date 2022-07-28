@@ -15,8 +15,6 @@ public class Preferences {
     private boolean shuffleInit;
     private RepeatMode repeat;
     private boolean repeatInit;
-    private boolean repeatPlaylist;
-    private boolean repeatPlaylistInit;
 
     public Preferences(Context ctx) {
         this.store = ctx.getSharedPreferences("avec_store", Context.MODE_PRIVATE);

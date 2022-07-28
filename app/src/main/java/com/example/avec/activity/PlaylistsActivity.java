@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.dialog.CreateNewPlaylistDialog;
 import com.example.avec.util.Globals;
-import com.example.avec.util.playlist.Playlist;
 import com.example.avec.util.playlist.PlaylistAdapter;
-
-import java.util.Comparator;
 
 public class PlaylistsActivity extends AppCompatActivity {
     @Override
@@ -50,8 +47,7 @@ public class PlaylistsActivity extends AppCompatActivity {
 
         // Set the onClickListener for the add button
         ImageButton add = findViewById(R.id.pl_add);
-        CreateNewPlaylistDialog dialog = new CreateNewPlaylistDialog(this);
-        dialog.setSuccessCallback(() -> {
+        CreateNewPlaylistDialog dialog = new CreateNewPlaylistDialog(this, () -> {
             playlistAdapter.notifyItemInserted(Globals.playlists.size());
             manager.requestLayout();
         });
