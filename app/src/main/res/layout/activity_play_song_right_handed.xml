@@ -210,4 +210,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+            android:text="Listen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleSong"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#ABABAB"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteY="32dp"
+            tools:layout_editor_absoluteX="178dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

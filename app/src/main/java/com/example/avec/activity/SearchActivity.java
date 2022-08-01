@@ -1,9 +1,12 @@
 package com.example.avec.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import com.example.avec.util.Preferences;
 import com.example.avec.util.song.SongAdapter;
 
 public class SearchActivity extends AppCompatActivity {
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,27 +43,40 @@ public class SearchActivity extends AppCompatActivity {
 
         EditText query = findViewById(R.id.search_query);
         query.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s.toString();
-                String trimmed = str.trim();
-                if (!trimmed.equals(str)) {
-                    query.setText(trimmed);
-                    query.setSelection(trimmed.length());
-                }
                 songAdapter.search(query.getText().toString());
                 songAdapter.notifyDataSetChanged();
             }
         });
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        query.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                songAdapter.search(query.getText().toString());
+                songAdapter.notifyDataSetChanged();
+                query.clearFocus();
+                imm.hideSoftInputFromWindow(query.getWindowToken(), 0);
+                return true;
+            }
+            return false;
+        });
         ImageButton search = findViewById(R.id.search);
-        search.setOnClickListener(v -> query.requestFocus());
+        search.setOnClickListener(v -> {
+            if (!query.hasFocus()) {
+                query.requestFocus();
+                imm.showSoftInput(query, 0);
+                return;
+            }
+            query.clearFocus();
+            imm.hideSoftInputFromWindow(query.getWindowToken(), 0);
+            songAdapter.search(query.getText().toString());
+            songAdapter.notifyDataSetChanged();
+        });
         query.requestFocus();
     }
 

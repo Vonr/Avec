@@ -26,6 +26,7 @@ public class PlaySongActivity extends AppCompatActivity {
     Song song;
     int[] songs;
     ArrayList<Integer> history = new ArrayList<>();
+    Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class PlaySongActivity extends AppCompatActivity {
         });
 
         updateSeekBar = new UpdateUI();
-        new Handler(Looper.getMainLooper()).post(updateSeekBar);
+        handler.post(updateSeekBar);
     }
 
     private void playSong(int index) {
@@ -212,7 +213,7 @@ public class PlaySongActivity extends AppCompatActivity {
         @Override
         public void run() {
             long delayMillis = Globals.sp.getDuration() / 200;
-            new Handler(Looper.getMainLooper()).postDelayed(new UpdateUI(), delayMillis);
+            handler.postDelayed(new UpdateUI(), delayMillis);
 
             if (!Globals.sp.hasSong || !Globals.sp.isPlaying()) {
                 return;

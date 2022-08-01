@@ -37,18 +37,32 @@
             app:tint="#FFFFFF"
             android:background="@android:color/transparent"/>
 
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/search"
+            android:id="@+id/search"
+            android:tintMode="src_atop"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="32dp"
+            app:tint="#FFFFFF"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="32dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="390dp"
             android:layout_height="wrap_content"
             android:id="@+id/song_list"
             tools:listitem="@layout/song_item"
             app:layout_constraintTop_toBottomOf="@+id/menu_button"
-            android:layout_marginTop="180dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingBottom="?attr/actionBarSize"
             android:scrollIndicators="end"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            />
 
     <TextView
             android:text="Discover"

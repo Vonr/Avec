@@ -25,8 +25,8 @@
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/menu"
-            android:id="@+id/menu_button"
+            app:srcCompat="@drawable/arrow_back"
+            android:id="@+id/back"
             android:tintMode="src_atop"
             android:scaleX="2"
             android:scaleY="2"

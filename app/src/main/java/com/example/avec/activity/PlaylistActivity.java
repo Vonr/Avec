@@ -1,5 +1,6 @@
 package com.example.avec.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,8 +50,10 @@ public class PlaylistActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        super.finish();
         playlistSongAdapter.remove();
+        Intent intent = new Intent(this, PlaylistsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public void onClick(View v) {

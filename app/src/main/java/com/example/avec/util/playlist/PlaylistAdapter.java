@@ -49,7 +49,6 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
                 Log.d("PlaylistAdapter", "onBindViewHolder: " + pl.name);
                 enterPlaylist(v.getContext(), pl);
             });
-//            h.grid.setOnClickListener(v -> enterPlaylist(v.getContext(), pl));
             h.pin.setAlpha(pl.pinned ? 1f : 0.5f);
             h.pin.setOnClickListener(v -> {
                 pl.pinned = !pl.pinned;

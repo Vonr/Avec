@@ -46,6 +46,12 @@
                 android:configChanges="orientation"
                 android:screenOrientation="portrait">
         </activity>
+        <activity
+                android:name=".activity.SearchActivity"
+                android:exported="true"
+                android:configChanges="orientation"
+                android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
