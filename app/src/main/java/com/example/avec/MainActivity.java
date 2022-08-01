@@ -11,8 +11,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.activity.PlaylistsActivity;
+import com.example.avec.activity.SearchActivity;
 import com.example.avec.activity.SettingsActivity;
-import com.example.avec.dialog.SearchDialog;
 import com.example.avec.util.Globals;
 import com.example.avec.util.Preferences;
 import com.example.avec.util.song.SongAdapter;
@@ -66,13 +66,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        SearchDialog searchDialog = new SearchDialog(this);
-        searchDialog.setSuccessCallback(() -> {
-            songAdapter.search(searchDialog.query);
-            songAdapter.notifyDataSetChanged();
-        });
         ImageButton search = findViewById(R.id.search);
-        search.setOnClickListener(v -> searchDialog.show());
+        search.setOnClickListener(v -> {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

@@ -102,15 +102,11 @@ public class PlaySongActivity extends AppCompatActivity {
                     repeat.setImageResource(R.drawable.repeat_one);
                     repeat.setAlpha(1f);
                     break;
-//                case PLAYLIST:
-//                    repeat.setImageResource(R.drawable.repeat);
-//                    repeat.setAlpha(1f);
-//                    break;
             }
         });
 
         updateSeekBar = new UpdateUI();
-        Globals.ex.submit(updateSeekBar);
+        new Handler(Looper.getMainLooper()).post(updateSeekBar);
     }
 
     private void playSong(int index) {

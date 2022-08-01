@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class SongSearcher {
-    public List<Song> search(String query, List<Song> songs) {
+    public static List<Song> search(String query, List<Song> songs) {
         double queryLength = query.length();
         String lowerQuery = query.toLowerCase();
         return songs.stream()

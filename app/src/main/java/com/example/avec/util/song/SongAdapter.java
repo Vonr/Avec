@@ -95,7 +95,7 @@ public class SongAdapter extends RecyclerView.Adapter {
             sorted.addAll(playlist);
             return;
         }
-        List<Song> newSearch = Globals.ss.search(query, playlist);
+        List<Song> newSearch = SongSearcher.search(query, playlist);
         sorted.clear();
         sorted.addAll(newSearch);
         Log.d("SongAdapter", "New Sorted: " + Arrays.toString(sorted.stream().map(s -> s.name).toArray()));
