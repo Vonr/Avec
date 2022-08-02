@@ -98,6 +98,5 @@ public class Preferences {
     public enum RepeatMode {
         OFF,
         ONE,
-//        PLAYLIST
     }
 }

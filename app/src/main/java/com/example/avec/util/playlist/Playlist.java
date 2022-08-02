@@ -3,6 +3,7 @@ package com.example.avec.util.playlist;
 import android.util.Log;
 import com.example.avec.util.Globals;
 import com.example.avec.util.song.Song;
+import com.example.avec.util.song.SongRegistry;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class Playlist {
     }
 
     public boolean remove(Song song) {
-        boolean success = Globals.songRegistry.songs.remove(song);
+        boolean success = SongRegistry.songs.remove(song);
         if (success) {
             Globals.pref.savePlaylists(Globals.playlists);
         }
@@ -57,11 +58,11 @@ public class Playlist {
     }
 
     public void removeByIndex(int index) {
-        Globals.songRegistry.songs.remove(index);
+        SongRegistry.songs.remove(index);
     }
 
     public Song get(int index) {
-        return Globals.songRegistry.songs.get(songs.get(index));
+        return SongRegistry.songs.get(songs.get(index));
     }
 
     public boolean contains(int index) {
@@ -72,6 +73,8 @@ public class Playlist {
         return songs.size();
     }
 
+    // Returns a string representation of the playlist in the format
+    // "name pinned song1,song2,song3..."
     public String toString() {
         StringBuilder sb = new StringBuilder(name);
         sb.append(' ');
@@ -85,6 +88,9 @@ public class Playlist {
         return sb.toString();
     }
 
+    // Converts from a string in the following format
+    // "name pinned song1,song2,song3..."
+    // to a Playlist object.
     public static Playlist fromString(String str) {
         Log.d("Playlist", "Parsing playlist: " + str);
         int separator = str.lastIndexOf(' ');
@@ -106,7 +112,7 @@ public class Playlist {
         for (String index : indices) {
             try {
                 int song = Integer.parseInt(index);
-                if (Globals.songRegistry.songs.size() > song) {
+                if (SongRegistry.songs.size() > song) {
                     playlist.songs.add(song);
                 }
             } catch (NumberFormatException ignored) {}

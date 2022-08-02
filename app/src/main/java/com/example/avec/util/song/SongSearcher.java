@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class SongSearcher {
+    // Searches for songs by the query string.
+    // Returns a list of songs that match the query, ordered by:
+    // 1. Query matches on the start of a word and ends on the end of a word.
+    // 2. Query matches on the start of a word
+    // 3. How close the length of the song title is to the query's length.
     public static List<Song> search(String query, List<Song> songs) {
         double queryLength = query.length();
         String lowerQuery = query.toLowerCase();

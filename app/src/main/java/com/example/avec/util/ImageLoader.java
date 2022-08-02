@@ -7,9 +7,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
 
 public class ImageLoader {
+    // Cache of images to prevent unnecessary network requests
     private static final Map<String, Drawable> drawableCache = new HashMap<>();
+    public static ExecutorService ex = new ForkJoinPool(4);
 
     private static Drawable fromURL(String url) {
         if (drawableCache.containsKey(url)) {
@@ -26,8 +30,9 @@ public class ImageLoader {
         }
     }
 
+    // Loads an image from a URL and sets it to an ImageView on another thread.
     public static void asyncFromURL(ImageView imageView, String url) {
-        Globals.ex.submit(new ImageLoader.LoadImageFromURLTask(imageView, url));
+        ex.submit(new ImageLoader.LoadImageFromURLTask(imageView, url));
     }
 
     static class LoadImageFromURLTask implements Runnable {

@@ -2,12 +2,10 @@ package com.example.avec.util.song;
 
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.os.Handler;
-import com.example.avec.MainActivity;
-import com.example.avec.util.Globals;
 
 import java.io.IOException;
 
+// This class is a wrapper around MediaPlayer for convenience
 public class SongPlayer {
     private final MediaPlayer mediaPlayer;
     public boolean hasSong = false;

@@ -16,6 +16,7 @@ import com.example.avec.activity.PlaySongActivity;
 import com.example.avec.util.AutoHolder;
 import com.example.avec.util.Globals;
 import com.example.avec.util.song.Song;
+import com.example.avec.util.song.SongRegistry;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
             int index = playlist.getSongs()[position];
-            Song song = Globals.songRegistry.songs.get(index);
+            Song song = SongRegistry.songs.get(index);
             h.song_name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());

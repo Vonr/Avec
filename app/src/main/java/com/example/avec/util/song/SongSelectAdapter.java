@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.util.AutoHolder;
-import com.example.avec.util.Globals;
 
 import java.util.Arrays;
 
@@ -23,7 +22,7 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
 
     public SongSelectAdapter(int[] songs) {
         this.playlist = songs;
-        this.selected = new boolean[Globals.songRegistry.songs.size()];
+        this.selected = new boolean[SongRegistry.songs.size()];
         for (int i = 0; i < selected.length; i++) {
             int finalI = i;
             this.selected[i] = Arrays.stream(songs).anyMatch(x -> x == finalI);
@@ -43,7 +42,7 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
-            Song song = Globals.songRegistry.songs.get(position);
+            Song song = SongRegistry.songs.get(position);
             h.song_name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
@@ -60,7 +59,7 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return Globals.songRegistry.songs.size();
+        return SongRegistry.songs.size();
     }
 
     static class SongViewHolder extends AutoHolder {

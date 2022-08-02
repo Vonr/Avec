@@ -15,13 +15,11 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class CreateNewPlaylistDialog extends AvecDialog {
-    private Runnable successCallback;
-
     public CreateNewPlaylistDialog(Context ctx, Runnable successCallback) {
         AlertDialog.Builder db = new AlertDialog.Builder(ctx);
         db.setView(R.layout.dialog_create_playlist);
         this.dialog = db.create();
-        this.successCallback = successCallback;
+        setSuccessCallback(successCallback);
     }
 
     public void show() {

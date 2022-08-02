@@ -16,6 +16,7 @@ import com.example.avec.R;
 import com.example.avec.util.Globals;
 import com.example.avec.util.Preferences;
 import com.example.avec.util.song.SongAdapter;
+import com.example.avec.util.song.SongRegistry;
 
 public class SearchActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
@@ -31,7 +32,7 @@ public class SearchActivity extends AppCompatActivity {
         Globals.playlists = Globals.pref.loadPlaylists();
 
         // Create a new Song Adapter of the global Song Registry
-        SongAdapter songAdapter = new SongAdapter(Globals.songRegistry.songs);
+        SongAdapter songAdapter = new SongAdapter(SongRegistry.songs);
         // Set the Song Adapter to the Recycler View
         RecyclerView recyclerView = findViewById(R.id.song_list);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
