@@ -74,7 +74,7 @@ public class SongRegistry {
         song("facade",
                 "atlas",
                 "6d79f7df71646ac8503d269e73a23126c867290c",
-                "ab67616d0000b273463511d43e2f6379481fcae0");
+                "ab67616d0000b273c49779ac33322e62be90d6ec");
         song("Notion - Acoustic",
                 "The Rare Occasions",
                 "6d79f7df71646ac8503d269e73a23126c867290c",
