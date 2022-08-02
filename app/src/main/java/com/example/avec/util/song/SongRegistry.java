@@ -9,7 +9,7 @@ public class SongRegistry {
     public static void song(String name, String artist, String url, String thumbnail) {
         songs.add(new Song(lastIndex++, name, artist, thumbnail, url));
     }
-    
+
     static {
         song("Shape of You",
                 "Ed Sheeran",
@@ -77,7 +77,7 @@ public class SongRegistry {
                 "ab67616d0000b273c49779ac33322e62be90d6ec");
         song("Notion - Acoustic",
                 "The Rare Occasions",
-                "6d79f7df71646ac8503d269e73a23126c867290c",
+                "c165b8c1cf199e8f9002db3e542c78a4a4df1f53",
                 "ab67616d0000b2739604938dd7e72bf220e59858");
 
     }
