@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class SongRegistry {
     public static final ArrayList<Song> songs = new ArrayList<>();
-    private int lastIndex;
+    private static int lastIndex;
 
-    public SongRegistry() {
-        populate();
+    public static void song(String name, String artist, String url, String thumbnail) {
+        songs.add(new Song(lastIndex++, name, artist, thumbnail, url));
     }
-
-    public void populate() {
+    
+    static {
         song("Shape of You",
                 "Ed Sheeran",
                 "09e92af512355474ccf074988ea208ce6eb90a2b",
@@ -80,9 +80,5 @@ public class SongRegistry {
                 "6d79f7df71646ac8503d269e73a23126c867290c",
                 "ab67616d0000b2739604938dd7e72bf220e59858");
 
-    }
-
-    public void song(String name, String artist, String url, String thumbnail) {
-        songs.add(new Song(lastIndex++, name, artist, thumbnail, url));
     }
 }
