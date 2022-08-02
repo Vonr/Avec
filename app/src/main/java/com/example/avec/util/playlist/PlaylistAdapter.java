@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.activity.PlaylistActivity;
 import com.example.avec.dialog.RemovePlaylistDialog;
+import com.example.avec.util.AutoHolder;
 import com.example.avec.util.Globals;
 
 import java.util.ArrayList;
@@ -44,41 +45,37 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
             Playlist pl = playlists.get(position);
             Log.d("PlaylistAdapter", "onBindViewHolder: " + pl.name);
             int size = pl.size();
-            h.name.setText(pl.name);
-            h.button.setOnClickListener(v -> {
+            h.pl_name.setText(pl.name);
+            h.pl_button.setOnClickListener(v -> {
                 Log.d("PlaylistAdapter", "onBindViewHolder: " + pl.name);
                 enterPlaylist(v.getContext(), pl);
             });
-            h.pin.setAlpha(pl.pinned ? 1f : 0.5f);
-            h.pin.setOnClickListener(v -> {
+            h.pl_pin.setAlpha(pl.pinned ? 1f : 0.5f);
+            h.pl_pin.setOnClickListener(v -> {
                 pl.pinned = !pl.pinned;
-                h.pin.setAlpha(pl.pinned ? 1f : 0.5f);
+                h.pl_pin.setAlpha(pl.pinned ? 1f : 0.5f);
                 Globals.pref.savePlaylists(Globals.playlists);
             });
 
             if (pl.name.equals("Your Favourites")) {
-                h.remove.setEnabled(false);
-                h.remove.setVisibility(View.INVISIBLE);
+                h.pl_remove.setEnabled(false);
+                h.pl_remove.setVisibility(View.INVISIBLE);
             }
 
-            h.remove.setOnClickListener(v -> {
+            h.pl_remove.setOnClickListener(v -> {
                 RemovePlaylistDialog dialog = new RemovePlaylistDialog(v.getContext(), pl, () -> notifyItemRemoved(position));
                 dialog.show();
             });
 
-            loadImages(h, pl, size);
+            if (size < 1) return;
+            asyncFromURL(h.pl_tb1, pl.get(0).getThumbnailURL());
+            if (size < 2) return;
+            asyncFromURL(h.pl_tb2, pl.get(1).getThumbnailURL());
+            if (size < 3) return;
+            asyncFromURL(h.pl_tb3, pl.get(2).getThumbnailURL());
+            if (size < 4) return;
+            asyncFromURL(h.pl_tb4, pl.get(3).getThumbnailURL());
         }
-    }
-
-    public void loadImages(PlaylistViewHolder h, Playlist pl, int size) {
-        if (size < 1) return;
-        asyncFromURL(h.tb1, pl.get(0).getThumbnailURL());
-        if (size < 2) return;
-        asyncFromURL(h.tb2, pl.get(1).getThumbnailURL());
-        if (size < 3) return;
-        asyncFromURL(h.tb3, pl.get(2).getThumbnailURL());
-        if (size < 4) return;
-        asyncFromURL(h.tb4, pl.get(3).getThumbnailURL());
     }
 
     private void enterPlaylist(Context ctx, Playlist pl) {
@@ -105,26 +102,18 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
         return playlists.size();
     }
 
-    class PlaylistViewHolder extends RecyclerView.ViewHolder {
-        ImageView tb1;
-        ImageView tb2;
-        ImageView tb3;
-        ImageView tb4;
-        TextView name;
-        ImageButton pin;
-        ImageButton remove;
-        Button button;
+    static class PlaylistViewHolder extends AutoHolder {
+        ImageView pl_tb1;
+        ImageView pl_tb2;
+        ImageView pl_tb3;
+        ImageView pl_tb4;
+        TextView pl_name;
+        ImageButton pl_pin;
+        ImageButton pl_remove;
+        Button pl_button;
 
         public PlaylistViewHolder(@NonNull View itemView) {
             super(itemView);
-            tb1 = itemView.findViewById(R.id.pl_tb1);
-            tb2 = itemView.findViewById(R.id.pl_tb2);
-            tb3 = itemView.findViewById(R.id.pl_tb3);
-            tb4 = itemView.findViewById(R.id.pl_tb4);
-            name = itemView.findViewById(R.id.pl_name);
-            pin = itemView.findViewById(R.id.pl_pin);
-            remove = itemView.findViewById(R.id.pl_remove);
-            button = itemView.findViewById(R.id.pl_button);
         }
     }
 }

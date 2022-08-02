@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
 import com.example.avec.activity.PlaySongActivity;
 import com.example.avec.dialog.AddToPlaylistDialog;
+import com.example.avec.util.AutoHolder;
 import com.example.avec.util.Globals;
 import com.example.avec.util.playlist.Playlist;
 
@@ -49,32 +50,32 @@ public class SongAdapter extends RecyclerView.Adapter {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
             Song song = sorted.get(position);
-            h.name.setText(song.name);
+            h.song_name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
 
-            h.container.setOnClickListener(v -> playSong(v.getContext(), song.index));
+            h.holder.setOnClickListener(v -> playSong(v.getContext(), song.index));
             h.thumbnail.setOnClickListener(v -> playSong(v.getContext(), song.index));
 
             Playlist favourites = Globals.playlists.get(0);
             if (favourites.contains(song.index)) {
-                h.like.setAlpha(1f);
+                h.song_like.setAlpha(1f);
             } else {
-                h.like.setAlpha(0.5f);
+                h.song_like.setAlpha(0.5f);
             }
 
-            h.add.setOnClickListener(v -> {
+            h.song_add.setOnClickListener(v -> {
                 AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
                 dialog.show();
             });
 
-            h.like.setOnClickListener(v -> {
+            h.song_like.setOnClickListener(v -> {
                 if (favourites.contains(song.index)) {
                     favourites.remove(song.index);
-                    h.like.setAlpha(0.5f);
+                    h.song_like.setAlpha(0.5f);
                 } else {
                     favourites.add(song.index);
-                    h.like.setAlpha(1f);
+                    h.song_like.setAlpha(1f);
                 }
             });
         }
@@ -106,22 +107,16 @@ public class SongAdapter extends RecyclerView.Adapter {
         return sorted.size();
     }
 
-    class SongViewHolder extends RecyclerView.ViewHolder {
+    static class SongViewHolder extends AutoHolder {
         ImageView thumbnail;
-        TextView name;
+        TextView song_name;
         TextView artist;
-        LinearLayout container;
-        ImageButton add;
-        ImageButton like;
+        LinearLayout holder;
+        ImageButton song_add;
+        ImageButton song_like;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            name = itemView.findViewById(R.id.song_name);
-            artist = itemView.findViewById(R.id.artist);
-            container = itemView.findViewById(R.id.holder);
-            add = itemView.findViewById(R.id.song_add);
-            like = itemView.findViewById(R.id.song_like);
         }
     }
 }

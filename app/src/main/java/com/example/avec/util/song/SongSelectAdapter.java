@@ -1,23 +1,25 @@
 package com.example.avec.util.song;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.avec.R;
+import com.example.avec.util.AutoHolder;
 import com.example.avec.util.Globals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.example.avec.util.ImageLoader.asyncFromURL;
 
 public class SongSelectAdapter extends RecyclerView.Adapter {
     int[] playlist;
-    private boolean[] selected;
+    private final boolean[] selected;
 
     public SongSelectAdapter(int[] songs) {
         this.playlist = songs;
@@ -42,13 +44,13 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
             Song song = Globals.songRegistry.songs.get(position);
-            h.name.setText(song.name);
+            h.song_name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
 
-            h.container.setOnClickListener(v -> h.select.performClick());
-            h.select.setChecked(selected[position]);
-            h.select.setOnClickListener(v -> selected[position] = h.select.isChecked());
+            h.holder.setOnClickListener(v -> h.song_select.performClick());
+            h.song_select.setChecked(selected[position]);
+            h.song_select.setOnClickListener(v -> selected[position] = h.song_select.isChecked());
         }
     }
 
@@ -61,20 +63,15 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
         return Globals.songRegistry.songs.size();
     }
 
-    class SongViewHolder extends RecyclerView.ViewHolder {
+    static class SongViewHolder extends AutoHolder {
         ImageView thumbnail;
-        TextView name;
+        TextView song_name;
         TextView artist;
-        LinearLayout container;
-        CheckBox select;
+        LinearLayout holder;
+        CheckBox song_select;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);
-            thumbnail = itemView.findViewById(R.id.thumbnail);
-            name = itemView.findViewById(R.id.song_name);
-            artist = itemView.findViewById(R.id.artist);
-            container = itemView.findViewById(R.id.holder);
-            select = itemView.findViewById(R.id.song_select);
         }
     }
 }
