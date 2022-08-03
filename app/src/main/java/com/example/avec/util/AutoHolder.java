@@ -23,12 +23,10 @@ public class AutoHolder extends RecyclerView.ViewHolder {
                     // Find the identifier from the field name
                     // and set the field's value to the view
                     // corresponding to the identifier
-                    field.set(
-                            this,
-                            itemView.findViewById(
-                                    itemView
-                                            .getResources()
-                                            .getIdentifier(name, "id", itemView.getContext().getPackageName())));
+                    field.set(this,
+                            itemView.findViewById(itemView
+                                    .getResources()
+                                    .getIdentifier(name, "id", itemView.getContext().getPackageName())));
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

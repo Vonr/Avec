@@ -66,7 +66,7 @@
               app:layout_constraintEnd_toStartOf="@+id/song_like"
               app:layout_constraintTop_toTopOf="@+id/song_like"
               android:layout_marginEnd="16dp"
-              app:tint="#FFFFFF"/>
+              app:tint="#ABABAB"/>
 
       <ImageButton
               android:layout_width="wrap_content"
