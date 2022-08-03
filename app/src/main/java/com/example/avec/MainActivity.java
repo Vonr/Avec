@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(songAdapter);
 
-        initButtons(songAdapter);
+        initButtons();
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void initButtons(SongAdapter songAdapter) {
+    public void initButtons() {
         ConstraintLayout menu = findViewById(R.id.menu);
         ImageButton menu_button = findViewById(R.id.menu_button);
         menu_button.setOnClickListener(v -> {

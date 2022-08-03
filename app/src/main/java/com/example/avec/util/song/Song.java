@@ -6,7 +6,7 @@ public class Song {
     public int index;
     public String name;
     public String artist;
-    public String thumbnail;
+    private final String thumbnail;
     public String url;
 
     public Song(int index, String name, String artist, String thumbnail, String url) {
@@ -18,10 +18,18 @@ public class Song {
     }
 
     public String getThumbnailURL() {
-        return "https://i.scdn.co/image/" + this.thumbnail;
+        if (thumbnail.startsWith("https://")) {
+            return thumbnail;
+        } else {
+            return "https://i.scdn.co/image/" + this.thumbnail;
+        }
     }
 
     public String getTrackURL() {
-        return "https://p.scdn.co/mp3-preview/" + this.url;
+        if (url.startsWith("https://")) {
+            return url;
+        } else {
+            return "https://p.scdn.co/mp3-preview/" + this.url;
+        }
     }
 }

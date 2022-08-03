@@ -5,19 +5,25 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.avec.R;
+import com.example.avec.dialog.AddToPlaylistDialog;
+import com.example.avec.dialog.LyricsDialog;
 import com.example.avec.util.Globals;
 import com.example.avec.util.Preferences;
 import com.example.avec.util.song.Song;
 import com.example.avec.util.song.SongPlayer;
 import com.example.avec.util.song.SongRegistry;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.avec.util.ImageLoader.asyncFromURL;
@@ -28,6 +34,8 @@ public class PlaySongActivity extends AppCompatActivity {
     int[] songs;
     ArrayList<Integer> history = new ArrayList<>();
     Handler handler = new Handler(Looper.getMainLooper());
+    ExecutorService ex = new ForkJoinPool(1);
+    LyricsDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +57,18 @@ public class PlaySongActivity extends AppCompatActivity {
             setContentView(R.layout.activity_play_song);
         }
 
+        dialog = new LyricsDialog(this);
+        dialog.setLyrics("");
+        Button lyricsButton = findViewById(R.id.lyrics);
+        lyricsButton.setOnClickListener(v -> dialog.show());
+
         songs = getIntent().getIntArrayExtra("songs");
         song = SongRegistry.songs.get(index);
 
         playSong(index);
 
         // SeekBar drag behaviour
-        SeekBar seekBar = findViewById(R.id.psSeekBar);
+        SeekBar seekBar = findViewById(R.id.seek_bar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -75,7 +88,7 @@ public class PlaySongActivity extends AppCompatActivity {
         });
 
         // Play/Pause button behaviour
-        ImageButton playPause = findViewById(R.id.psPlayPause);
+        ImageButton playPause = findViewById(R.id.play_pause);
         playPause.setOnClickListener(v -> {
             SongPlayer sp = Globals.sp;
             if (sp.isPlaying()) {
@@ -88,17 +101,17 @@ public class PlaySongActivity extends AppCompatActivity {
         });
 
         // Shuffle button behaviour
-        ImageButton shuffle = findViewById(R.id.psShuffle);
-        shuffle.setAlpha(Globals.pref.shouldShuffle() ? 1 : 0.5f);
+        ImageButton shuffle = findViewById(R.id.shuffle);
+        shuffle.setAlpha(Globals.pref.shouldShuffle() ? 1 : 0.67f);
         shuffle.setOnClickListener(v -> {
             boolean state = Globals.pref.shouldShuffle();
             Globals.pref.setShuffle(!state);
-            shuffle.setAlpha(!state ? 1 : 0.5f);
+            shuffle.setAlpha(!state ? 1 : 0.67f);
         });
 
         // Repeat button behaviour
-        ImageButton repeat = findViewById(R.id.psRepeat);
-        repeat.setAlpha(Globals.pref.getRepeatMode() == Preferences.RepeatMode.ONE ? 1 : 0.5f);
+        ImageButton repeat = findViewById(R.id.repeat);
+        repeat.setAlpha(Globals.pref.getRepeatMode() == Preferences.RepeatMode.ONE ? 1 : 0.67f);
         repeat.setOnClickListener(v -> {
             Preferences.RepeatMode state = Globals.pref.getRepeatMode();
             // Set the new state to the next RepeatMode
@@ -109,7 +122,7 @@ public class PlaySongActivity extends AppCompatActivity {
             switch (newMode) {
                 case OFF:
                     repeat.setImageResource(R.drawable.repeat_one);
-                    repeat.setAlpha(0.5f);
+                    repeat.setAlpha(0.67f);
                     break;
                 case ONE:
                     repeat.setImageResource(R.drawable.repeat_one);
@@ -118,44 +131,73 @@ public class PlaySongActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton add = findViewById(R.id.add);
+        add.setOnClickListener(v -> {
+            AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
+            dialog.show();
+        });
+
         updateUI = new UpdateUI();
         handler.post(updateUI);
     }
 
     private void playSong(int index) {
         // Get image button
-        ImageButton playPause = findViewById(R.id.psPlayPause);
+        ImageButton playPause = findViewById(R.id.play_pause);
         playPause.setImageResource(R.drawable.pause);
 
         // Get song from index
         song = SongRegistry.songs.get(index);
-        TextView name = findViewById(R.id.psName);
+        TextView name = findViewById(R.id.name);
 
         // Set title to song name
         name.setText(song.name);
         // Set artist to song name
-        TextView artist = findViewById(R.id.psArtist);
+        TextView artist = findViewById(R.id.artist);
         artist.setText(song.artist);
 
         // Set album art to song album art
-        ImageView thumbnail = findViewById(R.id.psThumb);
+        ImageView thumbnail = findViewById(R.id.thumbnail);
         asyncFromURL(thumbnail, song.getThumbnailURL());
 
         // Play song
         Globals.sp.play(song);
 
         // Next button
-        ImageButton next = findViewById(R.id.psNext);
+        ImageButton next = findViewById(R.id.next);
         next.setOnClickListener(v -> {
             int plIndex = getIndexInPlaylist(index);
             nextSong(plIndex);
         });
 
         // Prev button
-        ImageButton prev = findViewById(R.id.psPrev);
+        ImageButton prev = findViewById(R.id.prev);
         prev.setOnClickListener(v -> {
             int plIndex = getIndexInPlaylist(index);
             previousSong(plIndex);
+        });
+
+        dialog.setLyrics("");
+        ex.submit(() -> {
+            try {
+                String lyrics;
+                String url = "https://www.musixmatch.com/lyrics/"
+                        + song.artist.replaceAll(" ", "-")
+                        + "/" + song.name.replaceAll(" ", "-");
+                Document doc = Jsoup.connect(url).get();
+                doc.outputSettings(new Document.OutputSettings().prettyPrint(false));
+
+                Elements e = doc.select(".mxm-lyrics__content");
+                StringBuilder lyricsBuilder = new StringBuilder();
+                for (Element element : e) {
+                    lyricsBuilder.append(element.wholeText()).append('\n');
+                }
+
+                lyrics = lyricsBuilder.toString();
+                dialog.setLyrics(lyrics);
+            } catch (IOException | NullPointerException e) {
+                dialog.setLyrics("");
+            }
         });
 
         // Set completion listener
@@ -253,7 +295,7 @@ public class PlaySongActivity extends AppCompatActivity {
             }
 
             // Update seek bar
-            SeekBar seekBar = findViewById(R.id.psSeekBar);
+            SeekBar seekBar = findViewById(R.id.seek_bar);
             seekBar.setProgress(Globals.sp.getProgress());
 
             // Update time
