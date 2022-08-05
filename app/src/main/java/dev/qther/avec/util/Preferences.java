@@ -61,6 +61,12 @@ public class Preferences {
         return this.repeat;
     }
 
+    // Saves playlists by getting their string representation and storing
+    // them in stored preferences in the format:
+    //
+    // name1 pinned1 song1,song2,song3...
+    // name2 pinned2 song2,song5,song3...
+    // ...
     public void savePlaylists(ArrayList<Playlist> playlists) {
         StringBuilder sb = new StringBuilder();
         for (Playlist playlist : playlists) {
@@ -73,10 +79,19 @@ public class Preferences {
 //        store.edit().putString("playlists", "").apply();
     }
 
+    // Overload of savePlaylists to save Globals.playlists by default
     public void savePlaylists() {
         savePlaylists(Globals.playlists);
     }
 
+
+    // Reads playlists from stored preferences in the format:
+    //
+    // name1 pinned1 song1,song2,song3...
+    // name2 pinned2 song2,song5,song3...
+    // ...
+    //
+    // into an ArrayList of Playlist objects.
     public ArrayList<Playlist> loadPlaylists() {
         ArrayList<Playlist> playlists = new ArrayList<>();
         String str = store.getString("playlists", "");
