@@ -6,6 +6,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.reflect.Field;
 
+// AutoHolder is a helper class to make it easier to create a RecyclerView.ViewHolder
+// It will autopopulate fields with the same name as the ViewHolder's fields.
+//
+// Requirements: All fields in the AutoHolder must extend View.
+//               No fields in the AutoHolder may be named "this$0"
+//
+// Example Usage:
+//
+// public class MyViewHolder extends AutoHolder {
+//     ImageView nameOfView;
+//     EditText nameOfOtherView;
+//
+//     public MyViewHolder(@NonNull View itemView) {
+//         super(itemView);
+//     }
+// }
 public class AutoHolder extends RecyclerView.ViewHolder {
     public AutoHolder(@NonNull View itemView) {
         super(itemView);

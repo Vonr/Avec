@@ -39,6 +39,7 @@ public class CreateNewPlaylistDialog extends AvecDialog {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String newName = charSequence.toString();
+                // Check if the name is already taken
                 if (newName.isEmpty() || newName.equals("Your Favourites") || playlistNames.contains(newName)) {
                     nameField.setTextColor(Color.parseColor("#FF0000"));
                 } else {
@@ -55,6 +56,7 @@ public class CreateNewPlaylistDialog extends AvecDialog {
         dialog.findViewById(R.id.confirm).setOnClickListener(v -> {
             String newName = nameField.getText().toString();
 
+            // Check if the name is already taken
             if (!newName.isEmpty() && !newName.equals("Your Favourites") && !playlistNames.contains(newName)) {
                 Playlist pl = new Playlist(newName);
                 pl.pinned = ((CheckBox) dialog.findViewById(R.id.cpl_pinned)).isChecked();

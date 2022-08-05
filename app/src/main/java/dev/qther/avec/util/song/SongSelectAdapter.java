@@ -43,13 +43,13 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
             Song song = SongRegistry.songs.get(position);
-            h.song_name.setText(song.name);
+            h.name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
 
-            h.holder.setOnClickListener(v -> h.song_select.performClick());
-            h.song_select.setChecked(selected[position]);
-            h.song_select.setOnClickListener(v -> selected[position] = h.song_select.isChecked());
+            h.holder.setOnClickListener(v -> h.select.performClick());
+            h.select.setChecked(selected[position]);
+            h.select.setOnClickListener(v -> selected[position] = h.select.isChecked());
         }
     }
 
@@ -64,10 +64,10 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
 
     static class SongViewHolder extends AutoHolder {
         ImageView thumbnail;
-        TextView song_name;
+        TextView name;
         TextView artist;
         LinearLayout holder;
-        CheckBox song_select;
+        CheckBox select;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);

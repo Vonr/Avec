@@ -47,7 +47,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
             SongViewHolder h = (SongViewHolder) holder;
             int index = playlist.getSongs()[position];
             Song song = SongRegistry.songs.get(index);
-            h.song_name.setText(song.name);
+            h.name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
 
@@ -56,53 +56,53 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
 
             Playlist favourites = Globals.playlists.get(0);
             if (favourites.contains(song.index)) {
-                h.song_like.setAlpha(1f);
+                h.like.setAlpha(1f);
             } else {
-                h.song_like.setAlpha(0.5f);
+                h.like.setAlpha(0.67f);
             }
 
-            h.song_add.setOnClickListener(v -> {
+            h.add.setOnClickListener(v -> {
                 if (toRemove.contains(song.index)) {
                     // This warning should not be followed as it will otherwise attempt removal by index.
                     toRemove.remove(toRemove.indexOf(song.index));
-                    h.song_add.setAlpha(1f);
-                    h.song_add.setImageResource(R.drawable.playlist_add_check);
+                    h.add.setAlpha(1f);
+                    h.add.setImageResource(R.drawable.playlist_add_check);
                     if (name.equals("Your Favourites")) {
                         favourites.add(song.index);
-                        h.song_like.setAlpha(1f);
+                        h.like.setAlpha(1f);
                     }
                 } else {
                     toRemove.add(song.index);
-                    h.song_add.setAlpha(0.5f);
-                    h.song_add.setImageResource(R.drawable.playlist_add);
+                    h.add.setAlpha(0.67f);
+                    h.add.setImageResource(R.drawable.playlist_add);
                     if (name.equals("Your Favourites")) {
                         favourites.remove(song.index);
-                        h.song_like.setAlpha(0.5f);
+                        h.like.setAlpha(0.67f);
                     }
                 }
             });
             if (playlist.contains(song.index)) {
-                h.song_add.setAlpha(1f);
-                h.song_add.setImageResource(R.drawable.playlist_add_check);
+                h.add.setAlpha(1f);
+                h.add.setImageResource(R.drawable.playlist_add_check);
             } else {
-                h.song_add.setAlpha(0.5f);
-                h.song_add.setImageResource(R.drawable.playlist_add);
+                h.add.setAlpha(0.67f);
+                h.add.setImageResource(R.drawable.playlist_add);
             }
 
-            h.song_like.setOnClickListener(v -> {
+            h.like.setOnClickListener(v -> {
                 if (favourites.contains(song.index)) {
                     favourites.remove(song.index);
-                    h.song_like.setAlpha(0.5f);
+                    h.like.setAlpha(0.67f);
                     toRemove.add(song.index);
-                    h.song_add.setAlpha(0.5f);
-                    h.song_add.setImageResource(R.drawable.playlist_add);
+                    h.add.setAlpha(0.67f);
+                    h.add.setImageResource(R.drawable.playlist_add);
                 } else {
                     favourites.add(song.index);
-                    h.song_like.setAlpha(1f);
+                    h.like.setAlpha(1f);
                     // This warning should not be followed as it will otherwise attempt removal by index.
                     toRemove.remove(toRemove.indexOf(song.index));
-                    h.song_add.setAlpha(1f);
-                    h.song_add.setImageResource(R.drawable.playlist_add_check);
+                    h.add.setAlpha(1f);
+                    h.add.setImageResource(R.drawable.playlist_add_check);
                 }
             });
         }
@@ -130,11 +130,11 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
 
     static class SongViewHolder extends AutoHolder {
         ImageView thumbnail;
-        TextView song_name;
+        TextView name;
         TextView artist;
         LinearLayout holder;
-        ImageButton song_add;
-        ImageButton song_like;
+        ImageButton add;
+        ImageButton like;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);

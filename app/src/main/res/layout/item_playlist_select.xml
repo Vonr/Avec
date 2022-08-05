@@ -28,33 +28,33 @@
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb1"
+              android:id="@+id/thumbnail1"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb2"
+              android:id="@+id/thumbnail2"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb3"
+              android:id="@+id/thumbnail3"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb4"
+              android:id="@+id/thumbnail4"
               />
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
-            android:id="@+id/pl_name"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ABABAB"
@@ -74,7 +74,7 @@
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/pl_select"
+            android:id="@+id/select"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

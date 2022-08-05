@@ -50,7 +50,7 @@ public class SongAdapter extends RecyclerView.Adapter {
         if (holder instanceof SongViewHolder) {
             SongViewHolder h = (SongViewHolder) holder;
             Song song = sorted.get(position);
-            h.song_name.setText(song.name);
+            h.name.setText(song.name);
             h.artist.setText(song.artist);
             asyncFromURL(h.thumbnail, song.getThumbnailURL());
 
@@ -59,23 +59,23 @@ public class SongAdapter extends RecyclerView.Adapter {
 
             Playlist favourites = Globals.playlists.get(0);
             if (favourites.contains(song.index)) {
-                h.song_like.setAlpha(1f);
+                h.like.setAlpha(1f);
             } else {
-                h.song_like.setAlpha(0.5f);
+                h.like.setAlpha(0.67f);
             }
 
-            h.song_add.setOnClickListener(v -> {
+            h.add.setOnClickListener(v -> {
                 AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
                 dialog.show();
             });
 
-            h.song_like.setOnClickListener(v -> {
+            h.like.setOnClickListener(v -> {
                 if (favourites.contains(song.index)) {
                     favourites.remove(song.index);
-                    h.song_like.setAlpha(0.5f);
+                    h.like.setAlpha(0.67f);
                 } else {
                     favourites.add(song.index);
-                    h.song_like.setAlpha(1f);
+                    h.like.setAlpha(1f);
                 }
             });
         }
@@ -109,11 +109,11 @@ public class SongAdapter extends RecyclerView.Adapter {
 
     static class SongViewHolder extends AutoHolder {
         ImageView thumbnail;
-        TextView song_name;
+        TextView name;
         TextView artist;
         LinearLayout holder;
-        ImageButton song_add;
-        ImageButton song_like;
+        ImageButton add;
+        ImageButton like;
 
         public SongViewHolder(@NonNull View itemView) {
             super(itemView);

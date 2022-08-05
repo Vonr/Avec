@@ -42,24 +42,24 @@ public class PlaylistSelectAdapter extends RecyclerView.Adapter {
             PlaylistViewHolder h = (PlaylistViewHolder) holder;
             Playlist pl = playlists.get(position);
             int size = pl.size();
-            h.pl_select.setChecked(selected[position]);
-            h.pl_name.setText(pl.name);
-            h.pl_name.setOnClickListener(v -> {
-                boolean newState = !h.pl_select.isChecked();
-                h.pl_select.setChecked(newState);
+            h.select.setChecked(selected[position]);
+            h.name.setText(pl.name);
+            h.name.setOnClickListener(v -> {
+                boolean newState = !h.select.isChecked();
+                h.select.setChecked(newState);
                 selected[position] = newState;
             });
-            h.pl_select.setOnClickListener(v -> selected[position] = h.pl_select.isChecked());
+            h.select.setOnClickListener(v -> selected[position] = h.select.isChecked());
 
-            if (size > 0) {
-                asyncFromURL(h.pl_tb1, pl.get(0).getThumbnailURL());
-                if (size < 2) return;
-                asyncFromURL(h.pl_tb2, pl.get(1).getThumbnailURL());
-                if (size < 3) return;
-                asyncFromURL(h.pl_tb3, pl.get(2).getThumbnailURL());
-                if (size < 4) return;
-                asyncFromURL(h.pl_tb4, pl.get(3).getThumbnailURL());
-            }
+            // Load images in background
+            if (size < 1) return;
+            asyncFromURL(h.thumbnail1, pl.get(0).getThumbnailURL());
+            if (size < 2) return;
+            asyncFromURL(h.thumbnail2, pl.get(1).getThumbnailURL());
+            if (size < 3) return;
+            asyncFromURL(h.thumbnail3, pl.get(2).getThumbnailURL());
+            if (size < 4) return;
+            asyncFromURL(h.thumbnail4, pl.get(3).getThumbnailURL());
         }
     }
 
@@ -73,12 +73,12 @@ public class PlaylistSelectAdapter extends RecyclerView.Adapter {
     }
 
     static class PlaylistViewHolder extends AutoHolder {
-        ImageView pl_tb1;
-        ImageView pl_tb2;
-        ImageView pl_tb3;
-        ImageView pl_tb4;
-        TextView pl_name;
-        CheckBox pl_select;
+        ImageView thumbnail1;
+        ImageView thumbnail2;
+        ImageView thumbnail3;
+        ImageView thumbnail4;
+        TextView name;
+        CheckBox select;
 
         public PlaylistViewHolder(@NonNull View itemView) {
             super(itemView);

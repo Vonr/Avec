@@ -31,22 +31,22 @@ public class ImageLoader {
     }
 
     // Loads an image from a URL and sets it to an ImageView on another thread.
-    public static void asyncFromURL(ImageView imageView, String url) {
-        ex.submit(new ImageLoader.LoadImageFromURLTask(imageView, url));
+    public static void asyncFromURL(ImageView view, String url) {
+        ex.submit(new ImageLoader.LoadImageFromURLTask(view, url));
     }
 
     static class LoadImageFromURLTask implements Runnable {
-        ImageView thumbnail;
+        ImageView view;
         String url;
 
-        LoadImageFromURLTask(ImageView thumbnail, String url) {
-            this.thumbnail = thumbnail;
+        LoadImageFromURLTask(ImageView view, String url) {
+            this.view = view;
             this.url = url;
         }
 
         @Override
         public void run() {
-            thumbnail.setImageDrawable(ImageLoader.fromURL(url));
+            view.setImageDrawable(ImageLoader.fromURL(url));
         }
     }
 }

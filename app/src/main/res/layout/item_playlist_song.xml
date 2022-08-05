@@ -31,7 +31,7 @@
             android:onClick="onClick">
 
       <TextView
-              android:id="@+id/song_name"
+              android:id="@+id/name"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               tools:text="@tools:sample/lorem[3]"
@@ -54,7 +54,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               app:srcCompat="@drawable/heart"
-              android:id="@+id/song_like"
+              android:id="@+id/like"
               android:layout_weight="1"
               android:layout_gravity="center_vertical|end"
               android:background="@android:color/transparent"
@@ -72,7 +72,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               app:srcCompat="@drawable/playlist_add_check"
-              android:id="@+id/song_add"
+              android:id="@+id/add"
               android:layout_weight="1"
               style="@android:style/Widget.Material.Light.ImageButton"
               android:background="@android:color/transparent"
@@ -81,8 +81,8 @@
               tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
               android:minHeight="30dp"
               android:minWidth="30dp"
-              app:layout_constraintEnd_toStartOf="@+id/song_like"
-              app:layout_constraintTop_toTopOf="@+id/song_like"
+              app:layout_constraintEnd_toStartOf="@+id/like"
+              app:layout_constraintTop_toTopOf="@+id/like"
               android:layout_marginEnd="16dp"
               app:tint="#FFFFFF"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ public class LyricsDialog extends AvecDialog {
         dialog.show();
 
         TextView lyricsView = dialog.findViewById(R.id.lyrics);
+        // Allow scrolling
         lyricsView.setMovementMethod(new ScrollingMovementMethod());
         lyricsView.setText(lyrics);
         dialog.findViewById(R.id.done).setOnClickListener(v -> succeed());

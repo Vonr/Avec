@@ -32,7 +32,7 @@
             android:layout_weight="0">
 
       <TextView
-              android:id="@+id/song_name"
+              android:id="@+id/name"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               tools:text="@tools:sample/lorem[3]"
@@ -55,7 +55,7 @@
       <CheckBox
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:id="@+id/song_select"
+              android:id="@+id/select"
               android:buttonTint="#ABABAB"
               android:backgroundTint="@android:color/transparent"
               app:layout_constraintTop_toTopOf="parent"

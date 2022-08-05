@@ -15,6 +15,7 @@ public abstract class AvecDialog {
         dialog.dismiss();
     }
 
+    // Sets the success callback to be called when the dialog is dismissed with succeed()
     public void setSuccessCallback(Runnable successCallback) {
         this.successCallback = successCallback;
     }

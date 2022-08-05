@@ -42,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
         ImageButton back = findViewById(R.id.back);
         back.setOnClickListener(v -> finish());
 
+        // Search Query field
         EditText query = findViewById(R.id.search_query);
         query.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -55,13 +56,18 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        // Create a new input method manager to hide the keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        // Set the onKeyListener for the search query field
         query.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 String queryText = query.getText().toString();
+                // Finish the activity if the query is empty
                 if (queryText.isEmpty()) {
                     finish();
+                    return true;
                 }
+                // Search for the query and hide the keyboard
                 songAdapter.search(queryText);
                 songAdapter.notifyDataSetChanged();
                 query.clearFocus();
@@ -78,9 +84,12 @@ public class SearchActivity extends AppCompatActivity {
                 return;
             }
             String queryText = query.getText().toString();
+            // Finish the activity if the query is empty
             if (queryText.isEmpty()) {
                 finish();
+                return;
             }
+            // Search for the query and hide the keyboard
             query.clearFocus();
             imm.hideSoftInputFromWindow(query.getWindowToken(), 0);
             songAdapter.search(queryText);

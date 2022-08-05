@@ -37,6 +37,7 @@ public class AddSongsToPlaylistDialog extends AvecDialog {
 
         dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.cancel());
         dialog.findViewById(R.id.confirm).setOnClickListener(v -> {
+            // Add selected songs to playlist
             boolean[] selected = songSelectAdapter.getSelected();
             Playlist pl = Globals.playlists.get(playlist);
             for (int i = 0; i < selected.length; i++) {

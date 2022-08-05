@@ -5,6 +5,7 @@ import dev.qther.avec.util.song.SongPlayer;
 
 import java.util.ArrayList;
 
+// Globals contains static references to shared objects.
 public class Globals {
     public static SongPlayer sp = new SongPlayer();
     public static Preferences pref;

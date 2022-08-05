@@ -90,7 +90,7 @@ public class Preferences {
             playlists.add(Playlist.fromString(line));
         }
         if (playlists.stream().map(p -> p.name).noneMatch(name -> name.equals("Your Favourites"))) {
-            Playlist favourites = new Playlist("Your Favourites");
+            Playlist favourites = new Playlist("Your Favourites", true);
             playlists.add(0, favourites);
         }
         return playlists;

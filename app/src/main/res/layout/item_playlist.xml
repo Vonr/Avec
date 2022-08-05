@@ -28,33 +28,33 @@
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb1"
+              android:id="@+id/thumbnail1"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb2"
+              android:id="@+id/thumbnail2"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb3"
+              android:id="@+id/thumbnail3"
               />
 
       <ImageView
               android:layout_width="30dp"
               android:layout_height="30dp"
               tools:srcCompat="@tools:sample/avatars"
-              android:id="@+id/pl_tb4"
+              android:id="@+id/thumbnail4"
               />
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
-            android:id="@+id/pl_name"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ABABAB"
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/pin"
-            android:id="@+id/pl_pin"
+            android:id="@+id/pin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -85,13 +85,13 @@
             android:scaleY="1.2"
             android:layout_marginEnd="16dp"
             app:layout_constraintVertical_bias="0.562"
-            app:layout_constraintEnd_toStartOf="@+id/pl_remove"/>
+            app:layout_constraintEnd_toStartOf="@+id/remove"/>
 
     <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/close"
-            android:id="@+id/pl_remove"
+            android:id="@+id/remove"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -106,9 +106,9 @@
             android:text="Button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/pl_button"
+            android:id="@+id/button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/pl_pin"
+            app:layout_constraintEnd_toStartOf="@+id/pin"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:alpha="0"

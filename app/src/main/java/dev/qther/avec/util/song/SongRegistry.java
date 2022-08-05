@@ -6,6 +6,7 @@ public class SongRegistry {
     public static final ArrayList<Song> songs = new ArrayList<>();
     private static int lastIndex;
 
+    // Constructs and adds a new song to the registry
     public static void song(String name, String artist, String url, String thumbnail) {
         songs.add(new Song(lastIndex++, name, artist, thumbnail, url));
     }

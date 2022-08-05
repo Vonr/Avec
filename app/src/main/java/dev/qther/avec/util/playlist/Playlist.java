@@ -16,6 +16,11 @@ public class Playlist {
         this.name = name;
     }
 
+    public Playlist(String name, boolean pinned) {
+        this.name = name;
+        this.pinned = pinned;
+    }
+
     public Playlist(String name, int[] songs) {
         this.name = name;
         for (int index : songs) {
