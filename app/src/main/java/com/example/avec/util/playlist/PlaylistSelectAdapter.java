@@ -31,7 +31,7 @@ public class PlaylistSelectAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.playlist_select_item, parent, false);
+                .inflate(R.layout.item_playlist_select, parent, false);
 
         return new PlaylistViewHolder(itemView);
     }

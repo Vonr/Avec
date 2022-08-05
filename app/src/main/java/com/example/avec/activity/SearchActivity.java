@@ -58,7 +58,11 @@ public class SearchActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         query.setOnKeyListener((v, keyCode, event) -> {
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                songAdapter.search(query.getText().toString());
+                String queryText = query.getText().toString();
+                if (queryText.isEmpty()) {
+                    finish();
+                }
+                songAdapter.search(queryText);
                 songAdapter.notifyDataSetChanged();
                 query.clearFocus();
                 imm.hideSoftInputFromWindow(query.getWindowToken(), 0);
@@ -73,9 +77,13 @@ public class SearchActivity extends AppCompatActivity {
                 imm.showSoftInput(query, 0);
                 return;
             }
+            String queryText = query.getText().toString();
+            if (queryText.isEmpty()) {
+                finish();
+            }
             query.clearFocus();
             imm.hideSoftInputFromWindow(query.getWindowToken(), 0);
-            songAdapter.search(query.getText().toString());
+            songAdapter.search(queryText);
             songAdapter.notifyDataSetChanged();
         });
         query.requestFocus();

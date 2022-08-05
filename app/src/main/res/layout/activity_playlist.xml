@@ -38,7 +38,7 @@
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="390dp"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/song_item"
+            tools:listitem="@layout/item_song"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/imageView3"
             android:layout_marginTop="80dp"

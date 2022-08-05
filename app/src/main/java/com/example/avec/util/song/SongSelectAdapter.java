@@ -33,7 +33,7 @@ public class SongSelectAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.playlist_select_song_item, parent, false);
+                .inflate(R.layout.item_playlist_select_song, parent, false);
 
         return new SongViewHolder(itemView);
     }

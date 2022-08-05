@@ -18,6 +18,7 @@ public class AutoHolder extends RecyclerView.ViewHolder {
 
                 // Get the field's name
                 String name = field.getName();
+
                 // Check field's name against "this$0"
                 if (!name.equals("this$0")) {
                     // Find the identifier from the field name

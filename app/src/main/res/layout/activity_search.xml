@@ -56,7 +56,7 @@
             android:layout_width="390dp"
             android:layout_height="wrap_content"
             android:id="@+id/song_list"
-            tools:listitem="@layout/song_item"
+            tools:listitem="@layout/item_song"
             app:layout_constraintTop_toBottomOf="@+id/back"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"

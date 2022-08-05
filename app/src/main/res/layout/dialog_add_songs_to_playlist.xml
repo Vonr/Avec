@@ -55,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="30dp"
             android:id="@+id/astpl_list"
-            tools:listitem="@layout/playlist_select_song_item"
+            tools:listitem="@layout/item_playlist_select_song"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

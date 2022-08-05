@@ -33,7 +33,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.playlist_item, parent, false);
+                .inflate(R.layout.item_playlist, parent, false);
 
         return new PlaylistViewHolder(itemView);
     }
