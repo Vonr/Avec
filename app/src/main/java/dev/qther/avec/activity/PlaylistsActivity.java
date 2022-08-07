@@ -58,7 +58,7 @@ public class PlaylistsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        // Go back to the previous activity, but with an intent to refresh the playlist list
+        // Go back to the previous activity, but with an intent to refresh the activity list
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
