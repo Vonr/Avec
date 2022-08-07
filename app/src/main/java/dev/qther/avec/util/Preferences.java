@@ -74,9 +74,7 @@ public class Preferences {
             sb.append('\n');
         }
         String str = sb.toString();
-        Log.d("Preferences", "Saving playlists: " + str);
         store.edit().putString("playlists", str).apply();
-//        store.edit().putString("playlists", "").apply();
     }
 
     // Overload of savePlaylists to save Globals.playlists by default

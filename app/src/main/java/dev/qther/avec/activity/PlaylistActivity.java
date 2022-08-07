@@ -1,11 +1,18 @@
 package dev.qther.avec.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,8 +42,43 @@ public class PlaylistActivity extends AppCompatActivity {
         Playlist pl = Globals.playlists.get(index);
 
         // Set the title of the screen to the playlist's name
-        TextView title = findViewById(R.id.pl_title);
+        EditText title = findViewById(R.id.pl_title);
         title.setText(pl.name);
+        title.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override public void afterTextChanged(Editable s) {
+                if ("Your Favourites".equals(pl.name)) {
+                    if (!"Your Favourites".equals(s.toString())) {
+                        title.setText("Your Favourites");
+                    }
+                    title.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+                    Toast.makeText(PlaylistActivity.this, "You can't change the name of your favourites playlist", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        title.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                String newTitle = title.getText().toString();
+                if (newTitle.isEmpty()) {
+                    Toast.makeText(PlaylistActivity.this, "Please enter a name", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                if (Globals.playlists.stream().anyMatch(p -> p.name.equals(newTitle))) {
+                    Toast.makeText(PlaylistActivity.this, "A playlist with that name already exists", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                pl.name = newTitle;
+                Globals.pref.savePlaylists();
+                title.clearFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(title.getWindowToken(), 0);
+                return true;
+            }
+            return false;
+        });
 
         // Create a new Song Adapter of the global Song Registry
         playlistSongAdapter = new PlaylistSongAdapter(pl.name, pl);

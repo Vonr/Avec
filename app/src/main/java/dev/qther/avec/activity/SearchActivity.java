@@ -2,6 +2,7 @@ package dev.qther.avec.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import dev.qther.avec.MainActivity;
 import dev.qther.avec.R;
 import dev.qther.avec.util.Globals;
 import dev.qther.avec.util.Preferences;
@@ -96,6 +98,14 @@ public class SearchActivity extends AppCompatActivity {
             songAdapter.notifyDataSetChanged();
         });
         query.requestFocus();
+    }
+
+    @Override
+    public void finish() {
+        // Go back to the previous activity, but with an intent to refresh the playlist list
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

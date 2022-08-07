@@ -57,18 +57,18 @@ public class SongAdapter extends RecyclerView.Adapter {
             h.holder.setOnClickListener(v -> playSong(v.getContext(), song.index));
             h.thumbnail.setOnClickListener(v -> playSong(v.getContext(), song.index));
 
-            Playlist favourites = Globals.playlists.get(0);
+            h.add.setOnClickListener(v -> {
+                AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
+                dialog.setSuccessCallback(() -> notifyDataSetChanged());
+                dialog.show();
+            });
+
+            Playlist favourites = Globals.playlists.stream().filter(pl -> "Your Favourites".equals(pl.name)).findFirst().orElse(null);
             if (favourites.contains(song.index)) {
                 h.like.setAlpha(1f);
             } else {
                 h.like.setAlpha(0.67f);
             }
-
-            h.add.setOnClickListener(v -> {
-                AddToPlaylistDialog dialog = new AddToPlaylistDialog(v.getContext(), song.index);
-                dialog.show();
-            });
-
             h.like.setOnClickListener(v -> {
                 if (favourites.contains(song.index)) {
                     favourites.remove(song.index);
@@ -77,6 +77,7 @@ public class SongAdapter extends RecyclerView.Adapter {
                     favourites.add(song.index);
                     h.like.setAlpha(1f);
                 }
+                Log.d("SongAdapter", "favourites: " + favourites);
             });
         }
     }
@@ -84,7 +85,7 @@ public class SongAdapter extends RecyclerView.Adapter {
     private void playSong(Context ctx, int index) {
         Intent intent = new Intent(ctx, PlaySongActivity.class);
         intent.putExtra("index", index);
-        intent.putExtra("songs", playlist.stream().mapToInt(s -> s.index).toArray());
+        intent.putExtra("songs", sorted.stream().mapToInt(s -> s.index).toArray());
 
         ctx.startActivity(intent);
     }

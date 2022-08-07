@@ -85,6 +85,9 @@ public class Playlist {
         sb.append(' ');
         sb.append(pinned);
         sb.append(' ');
+        if (songs.isEmpty()) {
+            return sb.toString();
+        }
         for (int song : songs) {
             sb.append(song);
             sb.append(',');
@@ -97,7 +100,6 @@ public class Playlist {
     // "name pinned song1,song2,song3..."
     // to a Playlist object.
     public static Playlist fromString(String str) {
-        Log.d("Playlist", "Parsing playlist: " + str);
         int separator = str.lastIndexOf(' ');
         String nameAndPinned = str.substring(0, separator);
         Playlist playlist;
@@ -110,9 +112,7 @@ public class Playlist {
             playlist = new Playlist(nameAndPinned.substring(0, nameSep));
             playlist.pinned = nameAndPinned.substring(nameSep + 1).equals("true");
         }
-        Log.d("Playlist", "Name: " + playlist.name);
 
-        Log.d("Playlist", "nameSep: " + nameSep);
         String[] indices = str.substring(separator + 1).split(",");
         for (String index : indices) {
             try {

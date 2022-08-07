@@ -25,8 +25,8 @@ import static dev.qther.avec.util.ImageLoader.asyncFromURL;
 public class PlaylistAdapter extends RecyclerView.Adapter {
     ArrayList<Playlist> playlists;
 
-    public PlaylistAdapter(ArrayList<Playlist> playlist) {
-        this.playlists = playlist;
+    public PlaylistAdapter(ArrayList<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter {
         if (holder instanceof PlaylistViewHolder) {
             PlaylistViewHolder h = (PlaylistViewHolder) holder;
             Playlist pl = playlists.get(position);
-            Log.d("PlaylistAdapter", "onBindViewHolder: " + pl.name);
+            Log.d("PlaylistAdapter", "onBindViewHolder: " + pl);
             int size = pl.size();
             h.name.setText(pl.name);
             h.button.setOnClickListener(v -> {

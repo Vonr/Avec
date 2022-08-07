@@ -13,7 +13,7 @@ public class SongSearcher {
     public static List<Song> search(String query, List<Song> songs) {
         double queryLength = query.length();
         String lowerQuery = query.toLowerCase();
-        return songs.stream()
+        return new ArrayList<>(songs).stream()
                 .filter(s -> s.name.toLowerCase().contains(lowerQuery))
                 .sorted((s1, s2) -> {
                     String name1 = s1.name.toLowerCase();

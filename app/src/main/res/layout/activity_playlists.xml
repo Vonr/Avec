@@ -71,6 +71,6 @@
             android:textColor="#ABABAB"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="26dp"/>
+            android:layout_marginTop="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
