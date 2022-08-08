@@ -93,16 +93,20 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter {
                 if (favourites.contains(song.index)) {
                     favourites.remove(song.index);
                     h.like.setAlpha(0.67f);
-                    toRemove.add(song.index);
-                    h.add.setAlpha(0.67f);
-                    h.add.setImageResource(R.drawable.playlist_add);
+                    if (name.equals("Your Favourites")) {
+                        toRemove.add(song.index);
+                        h.add.setAlpha(0.67f);
+                        h.add.setImageResource(R.drawable.playlist_add);
+                    }
                 } else {
                     favourites.add(song.index);
                     h.like.setAlpha(1f);
-                    // This warning should not be followed as it will otherwise attempt removal by index.
-                    toRemove.remove(toRemove.indexOf(song.index));
-                    h.add.setAlpha(1f);
-                    h.add.setImageResource(R.drawable.playlist_add_check);
+                    if (name.equals("Your Favourites")) {
+                        // This warning should not be followed as it will otherwise attempt removal by index.
+                        toRemove.remove(toRemove.indexOf(song.index));
+                        h.add.setAlpha(1f);
+                        h.add.setImageResource(R.drawable.playlist_add_check);
+                    }
                 }
             });
         }
